@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://th17l06dthvw"]
+
+[ext_resource type="PackedScene" uid="uid://cocsc3s7n8rti" path="res://Player.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dwbniasuerg8j" path="res://Enemy.tscn" id="2_h2yge"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="Player" parent="." instance=ExtResource("1_0xm2m")]
+transform = Transform3D(-0.66513914, 0, 0.7467194, 0, 1, 0, -0.7467194, 0, -0.66513914, 14.359118, 1.052226, -12.670144)
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.430891, 0.64716625, 13.333775)
+player = NodePath("../Player")
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.358764, 0.64716625, -5.22097)
+player = NodePath("../Player")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.523009, 0.64716625, -14.40312)
+player = NodePath("../Player")
+
+[node name="Enemy4" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8264236, 0.64716625, 13.333775)
+player = NodePath("../Player")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10180664, -0.19897461, 1.8769531)
+use_collision = true
+size = Vector3(35.61084, 0.6020508, 38.05078)
+material = SubResource("StandardMaterial3D_0xm2m")

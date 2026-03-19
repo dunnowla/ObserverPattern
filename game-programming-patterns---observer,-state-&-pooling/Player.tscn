@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://cocsc3s7n8rti"]
+
+[ext_resource type="Script" uid="uid://g14tagvfvfsx" path="res://Scwipts/PlayerController.cs" id="1_e80uo"]
+[ext_resource type="Script" uid="uid://b43vmjorrt5ke" path="res://Scwipts/PlayerUI.cs" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://b0iisd4bhqgjg" path="res://Scwipts/PlayerAudio.cs" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://s473r7txepr7" path="res://Scwipts/PlayerParticle.cs" id="3_e80uo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0rwas"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e80uo"]
+emission_shape_scale = Vector3(0.2, 0.2, 0.2)
+emission_shape = 1
+emission_sphere_radius = 3.66
+spread = 180.0
+gravity = Vector3(0, -5.535, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e80uo"]
+albedo_color = Color(0.7835655, 0, 0.1388813, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cxr5p"]
+material = SubResource("StandardMaterial3D_e80uo")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cam")]
+script = ExtResource("1_e80uo")
+cam = NodePath("Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_0rwas")
+
+[node name="PivotPoint" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotPoint"]
+mesh = SubResource("CapsuleMesh_0rwas")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9465198, 0.32264566, 0, -0.32264566, 0.9465198, 0, 1.8805162, 2.463123)
+
+[node name="Label3D" type="Label3D" parent="." node_paths=PackedStringArray("pc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3526764, 0)
+text = "Health"
+script = ExtResource("1_xhfnw")
+pc = NodePath("..")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("pc")]
+script = ExtResource("2_kne1u")
+pc = NodePath("..")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." node_paths=PackedStringArray("pc")]
+transform = Transform3D(1, 0, 0, 0, -0.9999995, -0.0009774286, 0, 0.0009774286, -0.9999995, 0.012491941, 0.62514806, 0.08475804)
+emitting = false
+amount = 25
+lifetime = 0.31
+one_shot = true
+speed_scale = 2.98
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_e80uo")
+draw_pass_1 = SubResource("BoxMesh_cxr5p")
+script = ExtResource("3_e80uo")
+pc = NodePath("..")
