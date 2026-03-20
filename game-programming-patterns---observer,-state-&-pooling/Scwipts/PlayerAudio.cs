@@ -14,9 +14,9 @@ public partial class PlayerAudio : AudioStreamPlayer3D, IPlayerObserve
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		pc.Attach(this);
+		pc.Attach(this); // Makes this an observer to the playercontroller
 	}
-
+	// Plays the sounds 
 	public void OnHit()
 	{
 		Hit.Play();

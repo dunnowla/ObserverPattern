@@ -32,7 +32,7 @@ public partial class EnemyController : CharacterBody3D
 				Die();
 				break;
 		}
-
+		// Makes the enemy move up and down if its alive
 		if(currentState != States.Dead)
 		{
 			float newY = (float)Math.Sin(timePassed * 5f) * 0.1f;
@@ -44,7 +44,7 @@ public partial class EnemyController : CharacterBody3D
 	{
 		if(GlobalPosition.DistanceTo(player.GlobalPosition) < detectRange)
 		{
-			currentState = States.Chasing;
+			currentState = States.Chasing; // Chases the player if it gets too close
 		}
 	}
 
@@ -63,6 +63,7 @@ public partial class EnemyController : CharacterBody3D
 
 	private void WaitState(double delta)
 	{
+		// Starts the timer for the waiting
 		waitTimer -= (float) delta;
 		if(waitTimer <= 0)
 		{
@@ -79,6 +80,7 @@ public partial class EnemyController : CharacterBody3D
 
 	public void HeadAreaHit(Node3D body)
 	{
+		// If the player collides with the enemies head the enemy dies
 		if(body is PlayerController player)
 		{
 			player.HitEnemy(); 
@@ -87,6 +89,8 @@ public partial class EnemyController : CharacterBody3D
 	}
 	public void BodyAreaHit(Node3D body)
 	{
+		// If the enemy collides with the player with its body
+		// It damages the player and makes the enemy wait before keeping up teh chase
 		if(currentState != States.Dead && body is PlayerController player)
 		{
 			player.TakeDamage();

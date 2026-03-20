@@ -39,19 +39,20 @@ public partial class PlayerController : CharacterBody3D
 
 	public void Attach(IPlayerObserve observer)
 	{
-		observers.Add(observer);
+		observers.Add(observer); // Adds observer
 	}
 	public void Detach(IPlayerObserve observer)
 	{
-		observers.Remove(observer);
+		observers.Remove(observer); // removes observer
 	}
 
 	public void TakeDamage()
 	{
+		// Reduces the player health
 		health --;
 		foreach(var observer in observers)
 		{
-			observer.OnHurt(health);
+			observer.OnHurt(health); // calls the hurt function in the observers
 		}
 	}
 
@@ -61,14 +62,14 @@ public partial class PlayerController : CharacterBody3D
 
 		if(!IsOnFloor())
 		{
-			velocity.Y -= 15f * (float)delta;
+			velocity.Y -= 15f * (float)delta; // Makes the player fall in the air
 		}
 		if(Input.IsActionJustPressed("jump")&& IsOnFloor())
 		{
 			velocity.Y = jumpHeight;
 			foreach(var observer in observers)
 			{
-				observer.OnJump();
+				observer.OnJump(); // Calls all the jump fucntions in the observers
 			}
 		}
 		Velocity = velocity;
@@ -79,14 +80,15 @@ public partial class PlayerController : CharacterBody3D
 	{
 		foreach(var observer in observers)
 		{
-			observer.OnHit();
+			observer.OnHit(); // calls the hit function in the observers
 		}
 
-		Velocity = new Vector3(Velocity.X,jumpHeight * 0.8f,Velocity.Z);
+		Velocity = new Vector3(Velocity.X,jumpHeight * 0.8f,Velocity.Z); // Makes the player jump a bit if it hits the enemy head
 	}
 
 	private void Move(double delta)
 	{
+		// simplified version of the movescript from assignment 1
 		Vector3 velocity = Velocity;
 		float xMove = Input.GetAxis("moveLeft","moveRight");
 		float zMove = Input.GetAxis("moveUp","moveDown");
@@ -115,6 +117,7 @@ public partial class PlayerController : CharacterBody3D
 
 	private void Rotate(double delta)
 	{
+		// rotates the player 
 		Vector3 norm = new Vector3(Velocity.X,0,Velocity.Z);
 		if(norm != Vector3.Zero)
 		{

@@ -9,17 +9,17 @@ public partial class PlayerUI : Label3D, IPlayerObserve
 	public override void _Ready()
 	{
 		pc.Attach(this);
-		Text = "Health: 3";
+		Text = "Health: 3"; // Sets the starting hp
 	}
 	public void OnHurt(int currentHealth)
 	{
 		if(currentHealth > 0)
 		{
-			Text = $"Health: {currentHealth}";
+			Text = $"Health: {currentHealth}"; // displays the health
 		}
 		else
 		{
-			Text = $"u dead g";
+			Text = $"u dead g"; // says your dead
 		}
 	}
 
