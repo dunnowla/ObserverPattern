@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cocsc3s7n8rti"]
+[gd_scene load_steps=11 format=3 uid="uid://cocsc3s7n8rti"]
 
 [ext_resource type="Script" uid="uid://g14tagvfvfsx" path="res://Scwipts/PlayerController.cs" id="1_e80uo"]
 [ext_resource type="Script" uid="uid://b43vmjorrt5ke" path="res://Scwipts/PlayerUI.cs" id="1_xhfnw"]
 [ext_resource type="Script" uid="uid://b0iisd4bhqgjg" path="res://Scwipts/PlayerAudio.cs" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://s473r7txepr7" path="res://Scwipts/PlayerParticle.cs" id="3_e80uo"]
+[ext_resource type="AudioStream" uid="uid://bai7qegjd7due" path="res://Scwipts/Timeline 1.mp3" id="4_cxr5p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
@@ -44,9 +45,15 @@ text = "Health"
 script = ExtResource("1_xhfnw")
 pc = NodePath("..")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("pc")]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." node_paths=PackedStringArray("pc", "hurt", "Jump", "Hit")]
 script = ExtResource("2_kne1u")
 pc = NodePath("..")
+hurt = NodePath("AudioStreamPlayer")
+Jump = NodePath("AudioStreamPlayer")
+Hit = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioStreamPlayer3D"]
+stream = ExtResource("4_cxr5p")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." node_paths=PackedStringArray("pc")]
 transform = Transform3D(1, 0, 0, 0, -0.9999995, -0.0009774286, 0, 0.0009774286, -0.9999995, 0.012491941, 0.62514806, 0.08475804)

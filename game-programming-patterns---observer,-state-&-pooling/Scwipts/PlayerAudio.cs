@@ -5,6 +5,12 @@ using System.ComponentModel.DataAnnotations;
 public partial class PlayerAudio : AudioStreamPlayer3D, IPlayerObserve
 {
 	[Export] public PlayerController pc;
+	[Export] public AudioStreamPlayer hurt;
+	[Export] public AudioStreamPlayer Jump;
+
+	[Export] public AudioStreamPlayer Hit;
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -13,20 +19,17 @@ public partial class PlayerAudio : AudioStreamPlayer3D, IPlayerObserve
 
 	public void OnHit()
 	{
-		PlaySfx("Hit");
+		Hit.Play();
 	}
 	public void OnHurt(int health)
 	{
-		PlaySfx("Hurt");
+		hurt.Play();
 	}
 	public void OnJump()
 	{
-		PlaySfx("Jump");
+		Jump.Play();
 	}
 
-	private void PlaySfx(string name)
-	{
-		//Audio logic
-	}
+	
 
 }
