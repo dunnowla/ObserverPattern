@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cocsc3s7n8rti"]
+[gd_scene load_steps=13 format=3 uid="uid://cocsc3s7n8rti"]
 
 [ext_resource type="Script" uid="uid://g14tagvfvfsx" path="res://Scwipts/PlayerController.cs" id="1_e80uo"]
 [ext_resource type="Script" uid="uid://b43vmjorrt5ke" path="res://Scwipts/PlayerUI.cs" id="1_xhfnw"]
@@ -10,19 +10,37 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0rwas"]
 
+[sub_resource type="Curve" id="Curve_cxr5p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.48314613), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tdg3f"]
+curve = SubResource("Curve_cxr5p")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e80uo"]
+particle_flag_align_y = true
 emission_shape_scale = Vector3(0.2, 0.2, 0.2)
 emission_shape = 1
-emission_sphere_radius = 3.66
+emission_sphere_radius = 2.08
 spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
 gravity = Vector3(0, -5.535, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_tdg3f")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e80uo"]
-albedo_color = Color(0.7835655, 0, 0.1388813, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtqjt"]
+transparency = 1
+albedo_color = Color(0.6862745, 0, 0.011764706, 1)
+metallic = 0.5
+emission = Color(0.12591085, 0.12591085, 0.12591082, 1)
+emission_energy_multiplier = 0.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_cxr5p"]
-material = SubResource("StandardMaterial3D_e80uo")
-size = Vector3(0.1, 0.1, 0.1)
+[sub_resource type="SphereMesh" id="SphereMesh_5ncpa"]
+material = SubResource("StandardMaterial3D_dtqjt")
+radius = 0.06
+height = 0.2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cam")]
 script = ExtResource("1_e80uo")
@@ -56,14 +74,14 @@ Hit = NodePath("AudioStreamPlayer")
 stream = ExtResource("4_cxr5p")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." node_paths=PackedStringArray("pc")]
-transform = Transform3D(1, 0, 0, 0, -0.9999995, -0.0009774286, 0, 0.0009774286, -0.9999995, 0.012491941, 0.62514806, 0.08475804)
+transform = Transform3D(1, 0, 0, 0, -0.9999995, -0.0009774286, 0, 0.0009774286, -0.9999995, 0.012491941, 0.1333834, 0.08475804)
 emitting = false
-amount = 25
-lifetime = 0.31
+amount = 35
+lifetime = 0.5
 one_shot = true
-speed_scale = 2.98
 explosiveness = 1.0
+trail_lifetime = 0.01
 process_material = SubResource("ParticleProcessMaterial_e80uo")
-draw_pass_1 = SubResource("BoxMesh_cxr5p")
+draw_pass_1 = SubResource("SphereMesh_5ncpa")
 script = ExtResource("3_e80uo")
 pc = NodePath("..")
